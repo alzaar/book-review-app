@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const DB = require('./config/keys').MONGO_URI;
 const PORT = process.env.PORT || 5000;
 //Profiles Users and Posts for user profile viewing, user authentication and user comments/posts
@@ -12,6 +13,10 @@ const post = require('./routes/api/post');
 //Middleware Setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//Passport Setup for user authentication
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 //Route Setup
 app.use('/api/post', post);
