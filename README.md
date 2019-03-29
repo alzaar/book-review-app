@@ -1,1 +1,1 @@
-## Book Review/Suggestion App using Google Vision api
+## Recipe Review/Suggestion App

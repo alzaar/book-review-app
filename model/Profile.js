@@ -14,26 +14,21 @@ const profileSchema = new Schema({
   bio: {
     type: String
   },
-  booksRead: [
+  recipesStored: [
     {
-      title: {
+      name: {
         type: String,
         required: true
       },
-      author: {
+      info: {
         type: String
-      },
-      yearRead: {
-        type: Number,
-        min: 1950,
-        max: 2030
       },
       rating: {
         type: Number,
         min: 0,
         max: 5
       },
-      recommendBook: {
+      recommendRecipe: {
         type: String
       }
     }

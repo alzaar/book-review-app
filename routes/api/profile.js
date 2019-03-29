@@ -9,7 +9,7 @@ const passport = require('passport');
 const User = require('../../model/User');
 //Validations
 const validateProfileInput = require('../../validation/profile');
-const validateBookInput = require('../../validation/book');
+const validateRecipeInput = require('../../validation/recipe');
 //@route  GET /api/profile/test
 //@desc   Test route
 //@access Public
@@ -48,7 +48,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   profileFields.user = req.user.id;
   if (req.body.handle) profileFields.handle = req.body.handle;
   if (req.body.bio) profileFields.bio = req.body.bio;
-  //Books Read is an array which has objects so we need to iterate over the objects
+  //Recipes Read is an array which has objects so we need to iterate over the objects
   //Use different route for experiences as this requires a diff form
   Profile.findOne({ user: req.user.id })
   .then(profile => {
@@ -123,11 +123,11 @@ router.get('/user/:user_id', (req, res) => {
   })
 })
 
-//@route POST /api/profile/booksread
-//@desc add books read
+//@route POST /api/profile/recipesstored
+//@desc add recipes read
 //@access Private
-router.post('/booksread', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const { errors, isValid } = validateBookInput(req.body);
+router.post('/recipesstored', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const { errors, isValid } = validateRecipeInput(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
@@ -139,30 +139,29 @@ router.post('/booksread', passport.authenticate('jwt', { session: false }), (req
       err.profile = 'No Profile found';
       return res.status(404).json(err)
     }
-    const bookDetails = {
-      title: req.body.title,
-      author: req.body.author,
-      yearRead: req.body.yearread,
+    const recipeDetails = {
+      name: req.body.title,
+      info: req.body.author,
       rating: req.body.rating,
-      recommendBook: req.body.recommendbook
+      recommendRecipe: req.body.recommendrecipe
     };
 
-    profile.booksRead.unshift(bookDetails);
+    profile.recipesStored.unshift(recipeDetails);
 
     profile.save().then(profile => res.json(profile))
   })
 })
 
-//@route DELETE /api/profile/booksread/:booksread
-//@desc Delete a book
+//@route DELETE /api/profile/recipesstored/:recipesstored
+//@desc Delete a recipe
 //@access PRIVATE
-router.delete('/booksread/:booksread_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.delete('/recipesstored/:recipesstored_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Profile.findOne({ user: req.user.id })
   .then(profile => {
     //Get remove index
-    const removeIndex = profile.booksRead.map(book => book.id).indexOf(req.params.booksread_id);
+    const removeIndex = profile.recipesStored.map(recipe => recipe.id).indexOf(req.params.recipesstored_id);
     //Splice Array
-    profile.booksRead.splice(removeIndex, 1);
+    profile.recipesStored.splice(removeIndex, 1);
     //Save Profile
     profile.save().then(profile => res.json(profile));
   })

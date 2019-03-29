@@ -1,11 +1,12 @@
 {
-  "name": "book-review-app",
+  "name": "recipe-review-app",
   "version": "1.0.0",
-  "description": "Book Review/Suggestions app",
+  "description": "Recipe Review/Suggestions app",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "test": "mocha ./tests --recursive"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.0.2",
+    "mongo-unit": "^1.4.4",
     "nodemon": "^1.18.10"
   }
 }
