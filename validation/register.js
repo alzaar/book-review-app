@@ -41,6 +41,11 @@ function validateRegisterInput(data) {
     errors.password2 = 'Password is required'
   }
 
+  if (data.password !== data.password2) {
+    errors.password = 'Passwords do not match';
+    errors.password2 = 'Passwords do not match';
+  }
+
   return {
     errors,
     isValid: isEmpty(errors)

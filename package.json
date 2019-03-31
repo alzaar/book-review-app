@@ -4,9 +4,12 @@
   "description": "Recipe Review/Suggestions app",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "test": "mocha ./tests --recursive"
+    "test": "mocha ./tests --recursive",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +26,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "concurrently": "^4.1.0",
     "mocha": "^6.0.2",
     "mongo-unit": "^1.4.4",
     "nodemon": "^1.18.10"

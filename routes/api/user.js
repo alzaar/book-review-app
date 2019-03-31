@@ -14,7 +14,7 @@ const validateLoginInput = require('../../validation/login');
 //@route  POST /api/user/register
 //@desc   register a user
 //@access Public
-router.post('/register', (req, res) => {
+router.post('/signup', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
@@ -60,12 +60,12 @@ router.post('/login', (req, res) => {
   User.findOne({email})
   .then(user => {
     if (!user) {
-      return res.status(404).json({ msg: 'User not Found' });
+      return res.status(404).json({ email: 'User not Found' });
     }
     bcrypt.compare(password, user.password)
     .then(isMatch => {
       if (!isMatch) {
-        return res.status(404).json({ msg: 'Incorrect password' });
+        return res.status(404).json({ password: 'Incorrect password' });
       } else {
         //Setup jwt payload for getting token
         const payload = {
