@@ -1,0 +1,14 @@
+.create-profile-button {
+  color: black !important;
+  position: relative;
+
+}
+
+.create-profile-button:hover {
+  color: white;
+}
+
+.dashboard {
+  height: 100vh;
+  font-family: 'Cardo', serif;
+}

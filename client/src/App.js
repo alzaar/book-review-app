@@ -13,13 +13,20 @@ import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 //Search Result components
 import Results from './components/searchresults/Results';
+//Profile Components
+import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/createprofile/CreateProfile';
+import EditProfile from './components/createprofile/EditProfile';
+//COmmon Components
+import PrivateRoute from './components/common/PrivateRoute';
 //Actions
 import { setCurrentUser } from './actions/authAction';
 import { logoutUser } from './actions/authAction';
+import { clearCurrentProfile } from './actions/profileAction';
 //Get Store
 import store from './store';
 //ROUTER Components
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //Check if user is logged in or not
 
 if (localStorage.jwtToken) {
@@ -35,6 +42,7 @@ if (localStorage.jwtToken) {
     //Logout user
     store.dispatch(logoutUser());
     //TODO Clear Current User
+    store.dispatch(clearCurrentProfile());
     //Redirect to login
     window.location.href = '/login';
   }
@@ -51,6 +59,15 @@ class App extends Component {
             <Route exact path="/signup" component={Signup}/>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/results" component={Results}/>
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/create-profile" component={CreateProfile}/>
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
+            </Switch>
           </div>
           <Footer/>
         </div>

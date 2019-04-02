@@ -3,6 +3,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 //Actions
 import { getRecipeInfo } from '../../actions/recipeAction';
+//Result Components
+import Card from './Card';
+import SearchFilter from './SearchFilter';
+//css
+import './css/results.css';
 
 class Results extends React.Component {
   constructor(props){
@@ -20,11 +25,22 @@ class Results extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.recipe.data.length === 0) {
+      this.props.history.push('/')
+    }
+  }
+
   render() {
-    const results = this.state.data.map(recipe => <div key={recipe.id}>{recipe.title}</div>);
+    console.log(this.props.recipe.data);
+    const results = this.state.data.map(recipe => <Card key={recipe.id} recipe={recipe}/>);
     return(
-      <div>
-        {results}
+      <div className="container-fluid results">
+        <SearchFilter/>
+        <p className="lead text-muted">Results: {this.state.data.length} recipes found</p>
+        <div className="row">
+          {results}
+        </div>
       </div>
     );
   }

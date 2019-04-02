@@ -1,0 +1,12 @@
+.search-box {
+  width: auto;
+  height: auto;
+  margin: 20px;
+}
+
+
+.search-input {
+  position: relative;
+  top: 10px;
+  justify-content: center;
+}

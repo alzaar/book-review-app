@@ -10,7 +10,7 @@ function capitalize(string) {
 }
 
 
-const TextFieldGroup = ({
+const BiggerInputField = ({
   name,
   placeholder,
   value,
@@ -25,7 +25,7 @@ const TextFieldGroup = ({
     <div className="form-group row">
       <label className="col-sm-2 col-form-label">{capitalize(info)}</label>
         <div className="col-sm-10">
-          <input
+          <textarea
             onChange={onChange}
             type={type}
             name={name}
@@ -42,7 +42,7 @@ const TextFieldGroup = ({
   )
 }
 
-TextFieldGroup.propTypes = {
+BiggerInputField.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
@@ -53,8 +53,8 @@ TextFieldGroup.propTypes = {
   disabled: PropTypes.string,
 }
 
-TextFieldGroup.defaultProps = {
+BiggerInputField.defaultProps = {
   text: 'text'
 }
 
-export default TextFieldGroup;
+export default BiggerInputField;

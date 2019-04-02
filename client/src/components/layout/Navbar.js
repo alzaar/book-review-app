@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authAction';
 import { getRecipeByIngredients } from '../../actions/recipeAction';
+import { clearCurrentProfile } from '../../actions/profileAction';
 import PropTypes from 'prop-types';
 import SearchFormNavbar from '../common/SearchFormNavbar';
 import { withRouter } from 'react-router-dom'
@@ -29,6 +30,7 @@ class Navbar extends React.Component {
 
   onLogout = (e) => {
     e.preventDefault();
+    this.props.clearCurrentProfile();
     this.props.logoutUser();
   }
   render() {
@@ -42,7 +44,7 @@ class Navbar extends React.Component {
 
     const authLinks2 = (
       <li className="nav-item">
-        <Link className="nav-link" to="/profile">Profile</Link>
+        <Link className="nav-link" to="/dashboard">Dashboard</Link>
       </li>
     )
 
@@ -96,4 +98,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { logoutUser, getRecipeByIngredients })(withRouter(Navbar));
+export default connect(mapStateToProps, { logoutUser, getRecipeByIngredients, clearCurrentProfile })(withRouter(Navbar));

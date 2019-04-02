@@ -2,7 +2,7 @@ import React from 'react';
 import './css/landing.css';
 import SearchForm from '../common/SearchForm';
 //Actions
-import { getRecipeByIngredients } from '../../actions/recipeAction';
+import { getRecipeByIngredients, addIngredients } from '../../actions/recipeAction';
 //REeact-redux connector
 import { connect } from 'react-redux';
 //React With router to redirect to a different page
@@ -15,7 +15,9 @@ class Landing extends React.Component {
       searchValue: ''
     }
   }
-
+  componentDidMount() {
+    document.getElementsByClassName('landing-search')[0].focus();
+  }
   handleOnChange = (e) => {
     this.setState({
       searchValue: e.target.value
@@ -25,7 +27,8 @@ class Landing extends React.Component {
   handleOnSubmit = (e) => {
     e.preventDefault();
     this.props.getRecipeByIngredients(this.state.searchValue);
-    this.props.history.push('/results')
+    this.props.addIngredients(this.state.searchValue);
+    this.props.history.push('/results');
   }
 
   render() {
@@ -54,4 +57,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { getRecipeByIngredients })(withRouter(Landing));
+export default connect(mapStateToProps, { getRecipeByIngredients, addIngredients })(withRouter(Landing));

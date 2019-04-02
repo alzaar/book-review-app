@@ -166,4 +166,20 @@ router.delete('/recipesstored/:recipesstored_id', passport.authenticate('jwt', {
     profile.save().then(profile => res.json(profile));
   })
 })
+
+//@route Delete Profile along with user
+//@desc Deleet a Profile
+//@access private
+router.delete(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOneAndRemove({ user: req.user.id }).then(() => {
+      User.findOneAndRemove({ _id: req.user.id }).then(() =>
+        res.json({ success: true })
+      );
+    });
+  }
+);
+
 module.exports = router;

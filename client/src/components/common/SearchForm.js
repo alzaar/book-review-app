@@ -9,7 +9,7 @@ const SearchForm = ({
   return (
     <form className="form-inline my-2 my-lg-0 form" onSubmit={onSubmit}>
       <input
-      className="form-control mr-sm-2 form-input"
+      className="form-control mr-sm-2 form-input landing-search"
       onChange={onChange}
       type="search"
       value={value}
