@@ -3,15 +3,19 @@ import './css/searchfilter.css'
 //Button comp to show ingredients
 import Buttons from './Buttons';
 //actions
-import { getIngredients, addIngredients } from '../../actions/recipeAction'
+import { getIngredients, addIngredients, getRecipeByIngredients } from '../../actions/recipeAction'
 //Connector
 import { connect } from 'react-redux';
+//Validations
+import isEmpty from '../../validation/is-empty';
+
 class SearchFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      searchArray: []
+      searchArray: [],
+      error: ''
     }
   }
   componentDidMount() {
@@ -25,6 +29,8 @@ class SearchFilter extends React.Component {
     this.setState({
       searchArray: ingredients
     })
+    ingredients = this.state.searchArray.join(',');
+    this.props.getRecipeByIngredients(ingredients);
   }
   handleOnChange = (e) => {
     this.setState({
@@ -33,10 +39,19 @@ class SearchFilter extends React.Component {
   }
   handleOnSubmit = (e) => {
     e.preventDefault();
-    this.props.addIngredients(this.state.value)
+    if (!isEmpty) {
+      this.props.addIngredients(this.state.value);
+    } else {
+      this.setState({
+        error: 'Must be a valid value'
+      })
+    }
+    console.log(this.state.error);
     this.setState({
       value: ''
-    })
+    });
+    let ingredients = this.state.searchArray.join(',');
+    this.props.getRecipeByIngredients(ingredients);
   }
   render() {
     return (
@@ -57,4 +72,4 @@ function mapStateToProps(state) {
     recipe: state.recipe
   }
 }
-export default connect(mapStateToProps, { getIngredients, addIngredients })(SearchFilter);
+export default connect(mapStateToProps, { getIngredients, addIngredients, getRecipeByIngredients })(SearchFilter);

@@ -8,6 +8,8 @@ import Card from './Card';
 import SearchFilter from './SearchFilter';
 //css
 import './css/results.css';
+//Spinner For laoding
+import Spinner from '../common/Spinner';
 
 class Results extends React.Component {
   constructor(props){
@@ -25,22 +27,27 @@ class Results extends React.Component {
     }
   }
 
-  componentDidMount() {
-    if (this.props.recipe.data.length === 0) {
-      this.props.history.push('/')
-    }
-  }
-
   render() {
     console.log(this.props.recipe.data);
-    const results = this.state.data.map(recipe => <Card key={recipe.id} recipe={recipe}/>);
-    return(
-      <div className="container-fluid results">
+    let results = '';
+    if (this.state.data.length === 0) {
+      results = <center style={{height: '100vh'}}><Spinner/></center>
+    } else {
+      results = (
+      <div>
         <SearchFilter/>
         <p className="lead text-muted">Results: {this.state.data.length} recipes found</p>
         <div className="row">
-          {results}
+        {this.state.data.map(recipe => <Card key={recipe.id} recipe={recipe}/>)}
         </div>
+      </div>
+      );
+    }
+    return(
+      <div className="container-fluid results">
+
+          {results}
+
       </div>
     );
   }

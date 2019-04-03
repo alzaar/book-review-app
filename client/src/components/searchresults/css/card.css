@@ -31,9 +31,27 @@
     cursor: pointer;
   }
   #media-body.card-body {
-    width: 200px
+    width: auto;
   }
   .card-title {
     font-size: 10px;
+  }
+}
+
+@media only screen and (width: 1024px) {
+  .card-title {
+    font-size: 15px;
+  }
+  .card-body {
+    width: auto;
+  }
+}
+
+@media only screen and (width: 768px) {
+  .card-title {
+    font-size: 8px;
+  }
+  .card-body {
+    width: auto;
   }
 }
