@@ -26,9 +26,6 @@ class Navbar extends React.Component {
     e.preventDefault();
     this.props.getRecipeByIngredients(this.state.searchValue);
     this.props.addIngredients(this.state.searchValue);
-    this.setState({
-      searchValue:''
-    })
     this.props.history.push('/results');
   }
 

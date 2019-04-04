@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { GET_RECIPE, GET_INGREDIENTS, ADD_INGREDIENT, DELETE_INGREDIENT } from './types';
+import { GET_RECIPE, GET_INGREDIENTS, ADD_INGREDIENT, DELETE_INGREDIENT, SELECT_RECIPE, SIMILAR_RECIPES } from './types';
 //Search query URL
 import { url } from '../config/apiCall';
 //API config
 import { apiCallConfig } from '../config/apiCall';
 
-
+//API CALL to get recipes
 export const getRecipeByIngredients = searchValue => dispatch => {
   axios.get(url.recipeByIngredients+searchValue, apiCallConfig)
   .then(res => {
@@ -17,16 +17,32 @@ export const getRecipeByIngredients = searchValue => dispatch => {
   .catch(err => console.log(err));
 }
 
+//API CALL TO GET similar recipes
 export const getSimilarRecipe = searchValue => dispatch => {
   axios.get(url.similarRecipes + searchValue + '/similar', apiCallConfig)
-  .then(res => console.log(res.data))
+  .then(res => {
+    dispatch({
+      type: SIMILAR_RECIPES,
+      payload: res
+    })
+  })
 }
 
-export const getRecipeInfo = searchValue => dispatch => {
-  axios.get(url.recipeInfo + searchValue + '/information', apiCallConfig)
-  .then(res => searchValue = (res.data.instructions));
+//GET SINGLE RECIPE details
+export const getRecipeInfo = (searchValue, history) => dispatch => {
+  let link = url.recipeInfo + searchValue + '/information';
+  axios.get(link, apiCallConfig)
+  .then(res =>{
+    dispatch({
+      type:SELECT_RECIPE,
+      payload: res.data
+    })
+    history.push('/recipe');
+  }
+  );
 }
 
+// ingredients stored in State
 export const getIngredients = ingredients => dispatch => {
   dispatch({
     type: GET_INGREDIENTS,
@@ -34,6 +50,7 @@ export const getIngredients = ingredients => dispatch => {
   })
 }
 
+//add ingredients to state
 export const addIngredients = ingredient => dispatch => {
   dispatch({
     type: ADD_INGREDIENT,
@@ -41,9 +58,24 @@ export const addIngredients = ingredient => dispatch => {
   })
 }
 
+//delete ingredients to state
 export const deleteIngredient = ingredient => dispatch => {
   dispatch({
     type: DELETE_INGREDIENT,
     payload: ingredient
   })
+}
+
+//Storing Recipe
+export const storeRecipe = recipe => dispatch => {
+  const token = {
+    Authorization: localStorage.getItem('jwtToken')
+  }
+  axios.post('/api/profile/recipesstored', recipe, token)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err.response.data)
+    })
 }

@@ -4,34 +4,35 @@ const Validator = require('validator');
 function validateRecipeInput(data) {
   const errors = {};
 
-  data.name = !isEmpty(data.name) ? data.name : '';
-  data.info = !isEmpty(data.info) ? data.info : '';
-  data.rating = !isEmpty(data.rating) ? data.rating : '';
-  data.recommendrecipe = !isEmpty(data.recommendrecipe) ? parseInt(data.recommendrecipe) : '';
+  data.title = !isEmpty(data.title) ? data.title : '';
+  data.instructions = !isEmpty(data.instructions) ? data.instructions : '';
+  data.image = !isEmpty(data.image) ? data.image : '';
+  data.readyInMinutes = !isEmpty(data.readyInMinutes) ? data.readyInMinutes.toString(10) : '';
+  data.servings = !isEmpty(data.servings) ? data.servings.toString(10) : '';
+  data.id = !isEmpty(data.id) ? data.id.toString(10) : '';
 
-  //Refactor this later during frontend testing
-  if (data.recommendrecipe < 0 || data.recommendrecipe > 1) {
-    errors.recommendrecipe = 'Recommend recipe must be a yes or no';
+  if (Validator.isEmpty(data.tite)) {
+    errors.tite = 'Must have a Title';
   }
 
-  if (isNaN(data.rating)) {
-    errors.rating = 'Rating must be a number';
+  if (Validator.isEmpty(data.instructions)) {
+    errors.instructions = 'Must have instructions';
   }
 
-  if (data.rating > 5 || data.rating < 0) {
-    errors.rating = 'Rating must be between 0 and 5';
+  if (Validator.isEmpty(data.image)) {
+    errors.image = 'Must have image URL';
   }
 
-  if (!isNaN(data.info)) {
-    errors.info = 'Info must be a string'
+  if (Validator.isEmpty(data.readyInMinutes)) {
+    errors.readyInMinutes = 'Must have Time'
   }
 
-  if (Validator.isEmpty(data.name)) {
-    errors.name = 'Name is required';
+  if (Validator.isEmpty(data.servings)) {
+    errors.servings = 'Must have servings';
   }
 
-  if (!isNaN(data.name)) {
-    errors.name = 'Name name must be a string'
+  if (Validator.isEmpty(data.id)) {
+    errors.id = 'Must have ID';
   }
 
   return {

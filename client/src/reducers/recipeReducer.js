@@ -1,7 +1,16 @@
-import { GET_RECIPE,  ADD_INGREDIENT, DELETE_INGREDIENT } from '../actions/types';
+import { GET_RECIPE,  ADD_INGREDIENT, DELETE_INGREDIENT, SELECT_RECIPE, SIMILAR_RECIPES } from '../actions/types';
 const initialState = {
   data: [],
-  ingredients: []
+  ingredients: [],
+  recipe: {
+    id: '',
+    title: '',
+    servings: '',
+    image: '',
+    readyInMinutes: '',
+    instructions: ''
+  },
+  similarRecipes: []
 }
 export default function(state = initialState, action) {
   switch(action.type) {
@@ -23,6 +32,23 @@ export default function(state = initialState, action) {
       return {
         ...state,
         ingredients: new_ingredients
+      }
+    case SELECT_RECIPE:
+      return {
+        ...state,
+        recipe: {
+          id: action.payload.id,
+          title: action.payload.title,
+          servings: action.payload.servings,
+          image: action.payload.image,
+          readyInMinutes: action.payload.readyInMinutes,
+          instructions: action.payload.instructions
+        }
+      }
+    case SIMILAR_RECIPES:
+      return {
+        ...state,
+        similarRecipes: action.payload
       }
     default:
       return state;

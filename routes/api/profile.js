@@ -127,11 +127,6 @@ router.get('/user/:user_id', (req, res) => {
 //@desc add recipes read
 //@access Private
 router.post('/recipesstored', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const { errors, isValid } = validateRecipeInput(req.body);
-
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
   Profile.findOne({ user: req.user.id })
   .then(profile => {
     const err = {};
@@ -140,10 +135,12 @@ router.post('/recipesstored', passport.authenticate('jwt', { session: false }), 
       return res.status(404).json(err)
     }
     const recipeDetails = {
-      name: req.body.title,
-      info: req.body.author,
-      rating: req.body.rating,
-      recommendRecipe: req.body.recommendrecipe
+      title: req.body.title,
+      instructions: req.body.instructions,
+      image: req.body.image,
+      servings: req.body.servings,
+      readyInMinutes: req.body.readyInMinutes,
+      id: req.body.id
     };
 
     profile.recipesStored.unshift(recipeDetails);

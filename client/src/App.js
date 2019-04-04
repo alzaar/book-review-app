@@ -24,10 +24,11 @@ import { setCurrentUser } from './actions/authAction';
 import { logoutUser } from './actions/authAction';
 import { clearCurrentProfile } from './actions/profileAction';
 //Get Store
-import store from './store';
+import { store } from './store';
 //ROUTER Components
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-//Check if user is logged in or not
+//Recipe Components
+import Recipe from './components/recipe/Recipe';
 
 if (localStorage.jwtToken) {
   //Set auth header
@@ -67,6 +68,9 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/recipe" component={Recipe}/>
             </Switch>
           </div>
           <Footer/>

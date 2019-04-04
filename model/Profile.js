@@ -16,20 +16,29 @@ const profileSchema = new Schema({
   },
   recipesStored: [
     {
-      name: {
+      title: {
         type: String,
         required: true
       },
-      info: {
-        type: String
+      image: {
+        type: String,
+        required: true
       },
-      rating: {
-        type: Number,
-        min: 0,
-        max: 5
+      instructions: {
+        type: String,
+        required: true
       },
-      recommendRecipe: {
-        type: String
+      readyInMinutes: {
+        type: String,
+        required: true
+      },
+      id: {
+        type: String,
+        required: true
+      },
+      servings: {
+        type: String,
+        required: true
       }
     }
   ]

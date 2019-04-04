@@ -39,18 +39,14 @@ class SearchFilter extends React.Component {
   }
   handleOnSubmit = (e) => {
     e.preventDefault();
-    if (!isEmpty) {
+    if (!isEmpty(this.state.value)) {
       this.props.addIngredients(this.state.value);
-    } else {
-      this.setState({
-        error: 'Must be a valid value'
-      })
     }
-    console.log(this.state.error);
     this.setState({
       value: ''
     });
     let ingredients = this.state.searchArray.join(',');
+    console.log('SearchFilter - onSubmit');
     this.props.getRecipeByIngredients(ingredients);
   }
   render() {

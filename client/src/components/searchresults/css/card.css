@@ -4,12 +4,13 @@
   width: auto;
   height: 370px;
   box-shadow:  0 2px 2px 0 rgba(0,0,0,0.2);
+  cursor: pointer;
 }
+
 
 .card-img {
   width: auto;
   height: 300px;
-  cursor: pointer;
 }
 
 .card-body {
@@ -24,6 +25,9 @@
     width: auto;
     height: 200px;
     box-shadow: 10px;
+  }
+  #media-card.card:last-child {
+    margin-bottom: 65px
   }
   #media-img.card-img {
     width: auto;

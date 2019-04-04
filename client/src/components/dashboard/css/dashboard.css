@@ -11,4 +11,6 @@
 .dashboard {
   height: 100vh;
   font-family: 'Cardo', serif;
+  position: relative;
+  top: 60px
 }

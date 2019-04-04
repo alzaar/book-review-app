@@ -30,15 +30,15 @@ class Results extends React.Component {
   render() {
     console.log(this.props.recipe.data);
     let results = '';
-    if (this.state.data.length === 0) {
-      results = <center style={{height: '100vh'}}><Spinner/></center>
+    if (this.props.recipe.data.length === 0) {
+      results = <center style={{height: '100vh', marginTop: '20px'}}><Spinner/></center>
     } else {
       results = (
       <div>
         <SearchFilter/>
-        <p className="lead text-muted">Results: {this.state.data.length} recipes found</p>
+        <p className="lead text-muted found">Results: {this.state.data.length} recipes found</p>
         <div className="row">
-        {this.state.data.map(recipe => <Card key={recipe.id} recipe={recipe}/>)}
+        {this.state.data.map(recipe => <Card key={recipe.image} recipe={recipe}/>)}
         </div>
       </div>
       );
