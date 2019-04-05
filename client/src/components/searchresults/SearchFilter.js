@@ -8,7 +8,8 @@ import { getIngredients, addIngredients, getRecipeByIngredients } from '../../ac
 import { connect } from 'react-redux';
 //Validations
 import isEmpty from '../../validation/is-empty';
-
+//Helpers
+import compare from '../../helpers/compare';
 class SearchFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -26,11 +27,15 @@ class SearchFilter extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     let ingredients = nextProps.recipe.ingredients;
-    this.setState({
-      searchArray: ingredients
-    })
-    ingredients = this.state.searchArray.join(',');
-    this.props.getRecipeByIngredients(ingredients);
+
+    if (compare(ingredients, this.state.searchArray)) {
+      this.setState({
+        searchArray: ingredients
+      })
+      console.log(ingredients, this.state.searchArray);
+      ingredients = this.state.searchArray.join(',');
+      this.props.getRecipeByIngredients(ingredients);
+    }
   }
   handleOnChange = (e) => {
     this.setState({

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_RECIPE, GET_INGREDIENTS, ADD_INGREDIENT, DELETE_INGREDIENT, SELECT_RECIPE, SIMILAR_RECIPES } from './types';
+import { GET_RECIPE, GET_INGREDIENTS, ADD_INGREDIENT, DELETE_INGREDIENT, SELECT_RECIPE, SIMILAR_RECIPES, CLEAR_INGREDIENTS, GET_STORED_RECIPES, REMOVE_RECIPE } from './types';
 //Search query URL
 import { url } from '../config/apiCall';
 //API config
@@ -21,10 +21,12 @@ export const getRecipeByIngredients = searchValue => dispatch => {
 export const getSimilarRecipe = searchValue => dispatch => {
   axios.get(url.similarRecipes + searchValue + '/similar', apiCallConfig)
   .then(res => {
+    if (res) {
     dispatch({
       type: SIMILAR_RECIPES,
       payload: res
     })
+  }
   })
 }
 
@@ -78,4 +80,42 @@ export const storeRecipe = recipe => dispatch => {
     .catch(err => {
       console.log(err.response.data)
     })
+}
+
+export const clearIngredients = () => dispatch => {
+  return {
+    type: CLEAR_INGREDIENTS,
+    payload: []
+  }
+}
+
+export const getStoredRecipes = () => dispatch => {
+  const token = {
+    Authorization: localStorage.getItem('jwtToken')
+  }
+  axios.get('/api/profile/getrecipes', token)
+    .then(res => {
+      if (res) {
+        dispatch({
+          type: GET_STORED_RECIPES,
+          payload: res
+        })
+      }
+    })
+    .catch(err => console.log(err))
+}
+
+export const removeRecipe = (id) => dispatch => {
+  const token = {
+    Authorization: localStorage.getItem('jwtToken')
+  };
+  axios.delete(`/api/profile/recipesstored/${id}`, token)
+    .then(res =>
+      dispatch({
+        type:REMOVE_RECIPE,
+        payload: res.data.recipesStored
+      })
+    )
+    .catch(err => console.log(err.response))
+
 }

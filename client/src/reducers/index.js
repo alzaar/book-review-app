@@ -3,10 +3,12 @@ import authReducer from './authReducer';
 import errorsReducer from './errorsReducer';
 import recipeReducer from './recipeReducer';
 import profileReducer from './profileReducer';
+import commentReducer from './commentReducer';
 
 export default combineReducers({
   auth: authReducer,
   errors: errorsReducer,
   recipe: recipeReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  comment: commentReducer
 })

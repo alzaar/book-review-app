@@ -149,17 +149,30 @@ router.post('/recipesstored', passport.authenticate('jwt', { session: false }), 
   })
 })
 
+//@route GET /api/profile/getrecipes
+//@desc Get Recipes
+//Route PRIVATE
+router.get('/getrecipes', passport.authenticate('jwt', { session: false }), (req, res) => {
+  console.log(req.body);
+  Profile.findOne({ user: req.user.id })
+  .then(profile => {
+    return res.json(profile.recipesStored);
+  })
+})
+
 //@route DELETE /api/profile/recipesstored/:recipesstored
 //@desc Delete a recipe
 //@access PRIVATE
 router.delete('/recipesstored/:recipesstored_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+
   Profile.findOne({ user: req.user.id })
   .then(profile => {
     //Get remove index
     const removeIndex = profile.recipesStored.map(recipe => recipe.id).indexOf(req.params.recipesstored_id);
+
     //Splice Array
     profile.recipesStored.splice(removeIndex, 1);
-    //Save Profile
+    // //Save Profile
     profile.save().then(profile => res.json(profile));
   })
 })

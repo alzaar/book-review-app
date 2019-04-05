@@ -1,21 +1,19 @@
 import React from 'react';
 //Actions
 import { getCurrentProfile } from '../../actions/profileAction';
-import { deleteProfile } from '../../actions/profileAction';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './css/dashboard.css';
 //ProfileAction Component to edit profile and recipes
 import ProfileAction from './ProfileAction';
+import StoredRecipes from '../recipe/StoredRecipes';
 //ANimate comp
 import Spinner from '../common/Spinner';
 //using history in Actions
 import { withRouter } from 'react-router-dom';
 
 class Dashboard extends React.Component {
-  onClickDelete = () => {
-    this.props.deleteProfile(this.props.history);
-  }
+
 
   componentDidMount() {
     this.props.getCurrentProfile();
@@ -33,7 +31,7 @@ class Dashboard extends React.Component {
           <div>
             <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
             <ProfileAction />
-            <center><button onClick={this.onClickDelete} className="btn btn-danger">Delete Account</button></center>
+            <StoredRecipes />
           </div>
         )
       } else {
@@ -68,4 +66,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { getCurrentProfile, deleteProfile })(withRouter(Dashboard));
+export default connect(mapStateToProps, { getCurrentProfile })(withRouter(Dashboard));

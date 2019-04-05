@@ -3,7 +3,7 @@ import './css/navbar.css'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authAction';
-import { getRecipeByIngredients, addIngredients } from '../../actions/recipeAction';
+import { getRecipeByIngredients, addIngredients, clearIngredients } from '../../actions/recipeAction';
 import { clearCurrentProfile } from '../../actions/profileAction';
 import PropTypes from 'prop-types';
 import SearchFormNavbar from '../common/SearchFormNavbar';
@@ -24,6 +24,7 @@ class Navbar extends React.Component {
 
   handleOnSubmit = (e) => {
     e.preventDefault();
+    this.props.clearIngredients();
     this.props.getRecipeByIngredients(this.state.searchValue);
     this.props.addIngredients(this.state.searchValue);
     this.props.history.push('/results');
@@ -99,4 +100,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { logoutUser, getRecipeByIngredients, clearCurrentProfile, addIngredients })(withRouter(Navbar));
+export default connect(mapStateToProps, { logoutUser, getRecipeByIngredients, clearIngredients, clearCurrentProfile, addIngredients })(withRouter(Navbar));

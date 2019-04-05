@@ -13,7 +13,7 @@ const validatePostInput = require('../../validation/post');
 //@access Public
 router.get('/test', (req, res) => res.json({ msg: 'post' }));
 //@route  POST /api/post/
-//@desc   Get all Posts
+//@desc   Create Post
 //@access Private
 router.post('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { errors, isValid } = validatePostInput(req.body);
@@ -120,10 +120,17 @@ router.post('/unlike/:post_id', passport.authenticate('jwt', { session: false })
 //@access Private
 router.post('/comment/:post_id', passport.authenticate('jwt', { session: false }), (req, res) => {
   const { errors, isValid } = validatePostInput(req.body);
-
+  console.log(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   }
+  const newPost = new Post({
+    text: req.body.text,
+    name: req.body.name,
+    user: req.user.id
+  });
+
+  newPost.save().then(post => res.json(post));
 
   Post.findById(req.params.post_id)
   .then(post => {

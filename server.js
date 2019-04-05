@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5000;
 const user = require('./routes/api/user');
 const profile = require('./routes/api/profile');
 const post = require('./routes/api/post');
+const comment = require('./routes/api/comment');
 
 //Middleware Setup
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,6 +23,7 @@ require('./config/passport')(passport);
 app.use('/api/post', post);
 app.use('/api/profile', profile);
 app.use('/api/user', user);
+app.use('/api/comment', comment);
 
 //Mongoose Setup
 mongoose.promise = global.promise;

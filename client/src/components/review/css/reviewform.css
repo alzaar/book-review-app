@@ -1,0 +1,21 @@
+.review-form {
+  font-family: 'Cardo', serif;
+  height: 30vh;
+}
+
+.form-area {
+
+}
+
+.title-myreview {
+  color: #7EB09B;
+  font-size: 20px;
+  width: auto;
+}
+
+
+.review-btn {
+  position: relative;
+  left: 71vw;
+  margin: 10px
+}

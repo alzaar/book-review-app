@@ -1,4 +1,4 @@
-import { GET_RECIPE,  ADD_INGREDIENT, DELETE_INGREDIENT, SELECT_RECIPE, SIMILAR_RECIPES } from '../actions/types';
+import { GET_RECIPE,  ADD_INGREDIENT, DELETE_INGREDIENT, SELECT_RECIPE, SIMILAR_RECIPES, CLEAR_INGREDIENTS, GET_STORED_RECIPES, REMOVE_RECIPE } from '../actions/types';
 const initialState = {
   data: [],
   ingredients: [],
@@ -10,7 +10,8 @@ const initialState = {
     readyInMinutes: '',
     instructions: ''
   },
-  similarRecipes: []
+  similarRecipes: [],
+  storedRecipes: []
 }
 export default function(state = initialState, action) {
   switch(action.type) {
@@ -49,6 +50,21 @@ export default function(state = initialState, action) {
       return {
         ...state,
         similarRecipes: action.payload
+      }
+    case CLEAR_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: action.payload
+      }
+    case GET_STORED_RECIPES:
+      return {
+        ...state,
+        storedRecipes: action.payload
+      }
+    case REMOVE_RECIPE:
+      return {
+        ...state,
+        recipesStored: action.payload
       }
     default:
       return state;

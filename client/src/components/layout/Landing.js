@@ -2,7 +2,7 @@ import React from 'react';
 import './css/landing.css';
 import SearchForm from '../common/SearchForm';
 //Actions
-import { getRecipeByIngredients, addIngredients } from '../../actions/recipeAction';
+import { getRecipeByIngredients, addIngredients, clearIngredients } from '../../actions/recipeAction';
 //REeact-redux connector
 import { connect } from 'react-redux';
 //React With router to redirect to a different page
@@ -17,6 +17,7 @@ class Landing extends React.Component {
   }
   componentDidMount() {
     document.getElementsByClassName('landing-search')[0].focus();
+    this.props.clearIngredients()
   }
   handleOnChange = (e) => {
     this.setState({
@@ -53,8 +54,8 @@ class Landing extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    recipe: state.recipe
+    recipe: state.recipe,
   }
 }
 
-export default connect(mapStateToProps, { getRecipeByIngredients, addIngredients })(withRouter(Landing));
+export default connect(mapStateToProps, { getRecipeByIngredients, addIngredients, clearIngredients })(withRouter(Landing));
