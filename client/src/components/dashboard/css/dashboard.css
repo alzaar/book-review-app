@@ -1,7 +1,9 @@
 .create-profile-button {
-  color: black !important;
-  position: relative;
+ color: #7EB09B;
+}
 
+.welcome-note {
+ color: #7EB09B !important;
 }
 
 .create-profile-button:hover {
@@ -12,5 +14,10 @@
   height: 100vh;
   font-family: 'Cardo', serif;
   position: relative;
-  top: 60px
+  top: 60px;
+  color: #7EB09B;
+}
+
+.dashboard-title {
+  text-align: center;
 }

@@ -41,7 +41,7 @@ class ReviewForm extends React.Component {
         <div className="form-group">
           <form onSubmit={this.handleOnSubmit}>
             <label className="title-myreview">Your Review</label>
-            <textarea className="form-control form-area" name="value" value={this.state.value} onChange={this.handleOnChange} rows="6"/>
+            <textarea className="form-control form-area" name="value" value={this.state.value} onChange={this.handleOnChange} rows="4"/>
             <button className="btn btn-dark review-btn">Submit</button>
           </form>
         </div>

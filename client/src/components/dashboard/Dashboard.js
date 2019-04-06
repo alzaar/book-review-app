@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
       if (Object.keys(profile).length > 0) {
         dashboardContent = (
           <div>
-            <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
+            <p className="lead text-muted welcome-note">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
             <ProfileAction />
             <StoredRecipes />
           </div>
@@ -37,7 +37,7 @@ class Dashboard extends React.Component {
       } else {
         dashboardContent = (
           <div>
-            <p className="lead text-muted">Welcome {user.name}</p>
+            <p className="lead text-muted welcome-note" >Welcome {user.name}</p>
             <p>No Profile details</p>
             <Link to='/create-profile'  className="btn btn-outline-dark my-2 my-sm-0 create-profile-button">Create Profile</Link>
           </div>
@@ -49,7 +49,7 @@ class Dashboard extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
+              <h1 className="display-4 dashboard-title m-1">Dashboard</h1>
                 {dashboardContent}
             </div>
           </div>

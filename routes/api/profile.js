@@ -153,7 +153,6 @@ router.post('/recipesstored', passport.authenticate('jwt', { session: false }), 
 //@desc Get Recipes
 //Route PRIVATE
 router.get('/getrecipes', passport.authenticate('jwt', { session: false }), (req, res) => {
-  console.log(req.body);
   Profile.findOne({ user: req.user.id })
   .then(profile => {
     return res.json(profile.recipesStored);

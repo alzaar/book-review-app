@@ -28,15 +28,17 @@ class Review extends React.Component {
     let newArray = nextProps.comment.comments.data;
     let currentArray = this.state.comments
     if (newArray.length !== 0) {
-      if (newArray[newArray.length - 1].date !== currentArray[currentArray.length - 1].date) {
-        let { recipe } = this.props;
-        this.props.getComments(recipe.recipe.id);
-        let { comments } = this.props.comment
-        let { user } = this.props.auth;
-        this.setState({
-          comments: comments.data,
-          name: user.name
-        })
+      if (newArray[newArray.length - 1]) {
+        if (newArray[newArray.length - 1].date !== currentArray[currentArray.length - 1].date) {
+          let { recipe } = this.props;
+          this.props.getComments(recipe.recipe.id);
+          let { comments } = this.props.comment
+          let { user } = this.props.auth;
+          this.setState({
+            comments: comments.data,
+            name: user.name
+          })
+        }
       }
     }
   }

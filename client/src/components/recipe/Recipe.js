@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 import recipeChecker from '../../helpers/recipeChecker';
 import ReviewForm from '../review/ReviewForm';
 import Review from '../review/Review';
-import compare from '../../helpers/compare';
+
 class Recipe extends React.Component {
   constructor(props) {
     super(props);
@@ -68,15 +68,13 @@ class Recipe extends React.Component {
         servings: nextProps.recipe.recipe.servings
       })
     }
-    // if (compare(nextProps.recipe.storedRecipes.data, this.state.storedRecipes)) {
-    //   this.props.getStoredRecipes();
-    //   this.setState({
-    //     storedRecipes: this.props.recipe.storedRecipes.data,
-    //   })
-    //   this.setState({
-    //     flag: recipeChecker(this.state.storedRecipes, this.state.id)
-    //   })
-    // }
+    this.props.getStoredRecipes();
+    this.setState({
+      storedRecipes: this.props.recipe.storedRecipes.data,
+    })
+    this.setState({
+      flag: recipeChecker(this.state.storedRecipes, this.state.id)
+    })
   }
   render() {
     let cards = this.props.recipe.similarRecipes.data.map(recipe => <button key={recipe.id} onClick={() => this.handleOnClickSimilarRecipe(recipe)} className="btn btn-success btn-sm recipe-button">{recipe.title}</button>);

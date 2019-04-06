@@ -15,7 +15,6 @@
 
 
 .review-btn {
-  position: relative;
-  left: 71vw;
-  margin: 10px
+  justify-content: center;
+  margin: 10px;
 }
